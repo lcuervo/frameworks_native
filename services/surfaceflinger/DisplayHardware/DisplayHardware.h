@@ -32,6 +32,7 @@
 #include "DisplayHardware/DisplayHardwareBase.h"
 #include "HWComposer.h"
 #include "PowerHAL.h"
+#include <ui/DisplayDispatcher.h>
 
 namespace android {
 
@@ -103,12 +104,15 @@ public:
     // Hardware Composer
     HWComposer& getHwComposer() const;
 
+    sp<DisplayDispatcher>  mDisplayDispatcher;
     status_t compositionComplete() const;
 
     Rect getBounds() const {
         return Rect(mWidth, mHeight);
     }
     inline Rect bounds() const { return getBounds(); }
+    int setDispProp(int cmd,int param0,int param1,int param2) const;
+    int getDispProp(int cmd,int param0,int param1) const;
 
 private:
     virtual void onVSyncReceived(int dpy, nsecs_t timestamp);
